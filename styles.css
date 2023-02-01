@@ -401,7 +401,3 @@ select {
     gap: 0.5rem;
   }
 }
-
-.phone__number {
-  display: none;
-}
