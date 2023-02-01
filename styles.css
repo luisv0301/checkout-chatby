@@ -1,0 +1,394 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+  color: #0f172a;
+  --primary-color: #ff4d1a;
+  --primary-color-hover: #e63200;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+h1,
+h2 {
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.product__container > h1 {
+  margin-bottom: 1rem;
+}
+
+main {
+  display: flex;
+  max-width: 1200px;
+}
+main > * {
+  flex: 1;
+}
+
+.checkout__step-one,
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout__step-two {
+  display: none;
+}
+
+label + label {
+  margin-top: 1rem;
+}
+label {
+  color: #1e293b;
+}
+
+.checkout__step-one,
+.checkout__step-two {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  min-width: auto;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+legend > span {
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+input,
+select {
+  padding: 0 0.5rem;
+  height: 40px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.checkout {
+  border-left: 1px solid #cbd5e1;
+  padding: 0 2rem;
+}
+
+.button {
+  height: 40px;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: background-color 200ms ease-in-out;
+}
+
+:focus {
+  outline: 1px solid var(--primary-color);
+  outline-offset: 2px;
+}
+.button--primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+.button--primary:hover {
+  background-color: var(--primary-color-hover);
+}
+.button--secondary {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.button--secondary:hover {
+  background-color: #ffebe5;
+}
+
+.margin-top-small {
+  margin-top: 1rem;
+}
+.margin-top-medium {
+  margin-top: 1.5rem;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__group {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.form__group > * {
+  flex: 1;
+}
+
+.form__group > label {
+  margin: 0;
+}
+
+.card-number__container {
+  position: relative;
+}
+.card-number__container > img {
+  height: 32px;
+  width: auto;
+  position: absolute;
+  right: 0.5rem;
+  top: 5px;
+}
+
+.card-number__container > input {
+  width: 100%;
+}
+
+/*
+.form__country {
+  max-width: 12rem;
+}
+*/
+
+.message--error {
+  font-size: 0.75rem;
+  color: red;
+}
+
+.product {
+  display: flex;
+  gap: 1rem;
+}
+
+.product__img {
+  width: 4rem;
+}
+
+.product__title {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.product__price {
+  color: #ff4d1a;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.product__quantity {
+  margin-top: 0.5rem;
+  height: 32px;
+}
+
+.logo {
+  width: 8rem;
+  display: inline-block;
+}
+
+.form__phone {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1rem;
+}
+.form__phone > .message--error {
+  grid-column: 1/-1;
+}
+
+.product__container {
+  padding: 0 1rem;
+}
+
+.layout__container {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+.secure-messagge {
+  border-radius: 6px;
+  border: 1px solid #22c55e;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: #dcfce757;
+}
+
+.secure-messagge > svg {
+  width: 32px;
+  color: #22c55e;
+}
+.secure-messagge > p {
+  color: #22c55e;
+  font-size: 0.87rem;
+}
+
+.form__group--revision {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.label--special {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__country {
+  flex: 1;
+  margin: 0;
+  flex-basis: 7rem;
+}
+
+.form__country > select {
+  width: 100%;
+}
+
+.card__expiration {
+  flex-basis: 11rem;
+}
+.card__code {
+  flex-basis: 8rem;
+}
+
+.card__code > input,
+.card__expiration > input {
+  width: 100%;
+}
+
+.checkout__form {
+  width: min(490px, 100%);
+}
+
+@media (max-width: 980px) {
+  .checkout__form {
+    margin: 0 auto;
+  }
+  .layout__container {
+    min-height: auto;
+
+    justify-content: center;
+  }
+  main {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .checkout {
+    border: 0;
+    padding: 0;
+  }
+
+  .product {
+    flex-direction: column;
+    align-items: center;
+  }
+  .product__description {
+    text-align: center;
+  }
+
+  .product__title {
+    flex-direction: column;
+    gap: 0;
+  }
+  .product__container {
+    text-align: center;
+  }
+}
+/*
+@media (max-width: 460px) {
+  .form__country {
+    max-width: 100%;
+  }
+}
+*/
+
+@media (max-width: 400px) {
+  .dial-code {
+    min-width: 4rem;
+  }
+}
