@@ -87,7 +87,14 @@ h2 {
 }
 
 .product__container > h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.product__container > h1 img {
+  width: 2rem;
+  height: auto;
 }
 
 main {
@@ -347,6 +354,9 @@ select {
 }
 
 @media (max-width: 980px) {
+  .product__container > h1 {
+    justify-content: center;
+  }
   .checkout__form {
     margin: 0 auto;
   }
