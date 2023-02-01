@@ -147,6 +147,7 @@ select {
   height: 40px;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
+  background-color: white;
 }
 
 .checkout {
@@ -390,5 +391,12 @@ select {
 @media (max-width: 400px) {
   .dial-code {
     min-width: 4rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .form__phone {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 }
