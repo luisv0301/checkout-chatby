@@ -2943,7 +2943,7 @@ const countriesDialCodeAndFlags = [
   { name: "Uzbekistan", flag: "🇺🇿", code: "UZ", dial_code: "+998" },
   { name: "Vanuatu", flag: "🇻🇺", code: "VU", dial_code: "+678" },
   {
-    name: "Venezuela, Bolivarian Republic of Venezuela",
+    name: "Venezuela",
     flag: "🇻🇪",
     code: "VE",
     dial_code: "+58",
