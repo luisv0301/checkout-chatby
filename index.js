@@ -3036,6 +3036,14 @@ const getCountryCode = () => {
 
 let countryCodeForPhone = getCountryCode();
 
+const getCountryFlag = () => {
+  const flag = document.getElementById("phone-img");
+  flag.src =
+    "https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/" +
+    countryCodeForPhone.toLowerCase() +
+    ".svg";
+};
+
 const formatCreditCardParameters = () => {
   new Cleave("#card-number", {
     creditCard: true,
@@ -3084,6 +3092,7 @@ const changeCardImg = (type) => {
 const setDialCodesOptions = () => {
   const dialCodeSelect = document.getElementById("dial-code");
   const countryCode = getCountryCode();
+  getCountryFlag();
 
   countriesDialCodeAndFlags.map((country) => {
     const option = new Option(
@@ -3102,6 +3111,7 @@ const dialCodeSelect = document.getElementById("dial-code");
 dialCodeSelect.addEventListener("change", (e) => {
   console.log(e.target.value);
   countryCodeForPhone = e.target.value;
+  getCountryFlag();
 });
 
 const setCountriesOptions = () => {
@@ -3149,9 +3159,11 @@ const isEmailValid = (email) => {
 };
 
 const isPhoneValid = (phone) => {
-  const countryCode = getCountryCode();
   console.log("telefono", phone);
-  return libphonenumber.parsePhoneNumber(phone, countryCode).isPossible();
+  console.log("telefono codigo", countryCodeForPhone);
+  return libphonenumber
+    .parsePhoneNumber(phone, countryCodeForPhone)
+    .isPossible();
 };
 
 const isCVVValid = (cvv) => {
@@ -3159,10 +3171,12 @@ const isCVVValid = (cvv) => {
   return re.test(cvv);
 };
 
+const isValidNumber = (value) => /^\d+$/.test(value);
+
 const setError = (element, message) => {
   errorsCounter++;
   const inputControl = element.parentElement;
-  if (element.id === "phone-number") {
+  if (element.id === "phone-number" || element.id === "identification") {
     const parent = inputControl.parentElement;
     const errorDisplay = parent.querySelector(".message--error");
     errorDisplay.innerText = message;
@@ -3174,17 +3188,20 @@ const setError = (element, message) => {
 };
 
 const setSuccess = (element) => {
-  errorsCounter--;
   const inputControl = element.parentElement;
-  const errorDisplay = inputControl.querySelector(".message--error");
+  if (element.id === "phone-number" || element.id === "identification") {
+    const parent = inputControl.parentElement;
+    const errorDisplay = parent.querySelector(".message--error");
+    errorDisplay.innerText = "";
+  } else {
+    const errorDisplay = inputControl.querySelector(".message--error");
 
-  errorDisplay.innerText = "";
-
-  console.log("cantidad de errores por corregir: ", errorsCounter);
+    errorDisplay.innerText = "";
+  }
 };
 
 const formFields = [
-  ...document.getElementById("checkout__form").getElementsByTagName("input"),
+  ...document.getElementById("checkout__form").querySelectorAll(".input"),
 ];
 
 const validateFields = (el) => {
@@ -3198,6 +3215,10 @@ const validateFields = (el) => {
 
   if (el.id === "card-code" && !isCVVValid(el.value)) {
     return setError(el, "Ingrese un código valido");
+  }
+
+  if (el.id === "identification" && !isValidNumber(el.value)) {
+    return setError(el, "Ingrese una identificación valida");
   }
 
   setSuccess(el);
@@ -3268,3 +3289,10 @@ const areThereErrors = () => {
   };
 
   */
+
+const btnsvg = document.getElementById("button-svg");
+const tooltip = document.getElementById("tooltip");
+
+btnsvg.addEventListener("click", () => {
+  tooltip.classList.toggle("visible");
+});

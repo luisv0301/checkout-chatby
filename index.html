@@ -87,8 +87,13 @@
           <form class="checkout__form" id="checkout__form">
             <fieldset class="checkout__step-one" id="checkout__step-one">
               <legend>
-                <p>Información general</p>
-                <span>Paso 1/2</span>
+                <div class="progress-bar">
+                  <p class="progress-bar__step">Paso 1/2</p>
+                  <div class="progress-bar__indicator">
+                    <div class="progress-bar__indicator-inner"></div>
+                  </div>
+                </div>
+                <p>Datos de facturación</p>
               </legend>
               <div class="secure-messagge">
                 <svg
@@ -106,33 +111,36 @@
                 </svg>
 
                 <p>
-                  Compra segura, usamos encriptación SSl para ptoteger tus
+                  Compra segura, usamos encriptación SSL para ptoteger tus
                   datos.
                 </p>
               </div>
               <label for="full-name">
                 Nombre completo
-                <input type="text" id="full-name" />
+                <input type="text" id="full-name" class="input" />
                 <span class="message--error" id="message-error"></span>
               </label>
               <label for="email">
                 Correo
-                <input type="email" id="email" />
+                <input type="email" id="email" class="input" />
                 <span class="message--error" id="message-error"></span>
               </label>
 
               <label for="phone-number">
                 Teléfono
                 <div class="phone-numer__field">
-                  <select name="dial-code" id="dial-code">
-                    <option value="58">VE(+58)</option>
-                  </select>
+                  <select name="dial-code" id="dial-code"></select>
 
                   <input
                     type="tel"
                     id="phone-number"
-                    class="phone__number"
-                    placeholder="xxx xxx xxx"
+                    class="phone__number input"
+                  />
+                  <img
+                    src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/ve.svg"
+                    alt=""
+                    id="phone-img"
+                    class="phone__img"
                   />
                 </div>
                 <span class="message--error" id="message-error"></span>
@@ -140,7 +148,7 @@
 
               <label for="direction">
                 Dirección
-                <input type="text" id="direction" />
+                <input type="text" id="direction" class="input" />
 
                 <span class="message--error" id="message-error"></span>
               </label>
@@ -148,7 +156,7 @@
               <div class="form__group--revision">
                 <label for="state" class="label--special">
                   Estado/Provincia
-                  <input type="text" id="state" />
+                  <input type="text" id="state" class="input" />
                   <span class="message--error" id="message-error"></span>
                 </label>
                 <label for="country" class="form__country label--special">
@@ -160,15 +168,41 @@
               <button
                 class="button button--primary margin-top-medium"
                 id="continue"
+                type="submit"
               >
                 Continuar
               </button>
+              <div class="pago-seguro">
+                <p>
+                  <svg
+                    width="16"
+                    height="18"
+                    viewBox="0 0 16 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.0618 2.3963C15.0327 2.17545 14.8814 1.99415 14.6768 1.93446L8.12514 0.0199718C8.03138 -0.00763384 7.93336 -0.00763384 7.83961 0.0199718L1.28791 1.93446C1.08334 1.99415 0.932051 2.17545 0.902929 2.3963C0.865284 2.68354 -0.00197858 9.46484 2.22193 12.8387C4.44301 16.2081 7.71957 17.0721 7.85736 17.1071C7.93976 17.128 8.02499 17.128 8.10739 17.1071C8.24589 17.0721 11.5225 16.2088 13.7428 12.8387C15.966 9.46484 15.0995 2.68354 15.0618 2.3963ZM12.2072 6.35584L7.73804 11.0503C7.63433 11.1592 7.49796 11.2144 7.36158 11.2144C7.22521 11.2144 7.08883 11.16 6.98513 11.0503L4.22211 8.14797C4.01399 7.92937 4.01399 7.57571 4.22211 7.35711L4.77045 6.78037C4.97856 6.56177 5.31595 6.56177 5.52407 6.78037L7.36158 8.71053L10.9052 4.98824C11.1133 4.76964 11.45 4.76964 11.6581 4.98824L12.2065 5.56498C12.4146 5.78359 12.4146 6.13798 12.2065 6.35659L12.2072 6.35584Z"
+                      fill="#969696"
+                    />
+                  </svg>
+                  Pagos seguros por
+                </p>
+                <img src="images/wompi.png" alt="" />
+              </div>
             </fieldset>
 
             <fieldset class="checkout__step-two" id="checkout__step-two">
               <legend>
-                <p>Información de la tarjeta</p>
-                <span>Paso 2/2</span>
+                <div class="progress-bar">
+                  <p class="progress-bar__step">Paso 2/2</p>
+                  <div class="progress-bar__indicator">
+                    <div
+                      class="progress-bar__indicator-inner progress-bar__indicator-inner--full-width"
+                    ></div>
+                  </div>
+                </div>
+                <p>Paga con tu tarjeta</p>
               </legend>
               <div class="secure-messagge">
                 <svg
@@ -186,19 +220,57 @@
                 </svg>
 
                 <p>
-                  Compra segura, usamos encriptación SSl para ptoteger tus
+                  Compra segura, usamos encriptación SSL para ptoteger tus
                   datos.
                 </p>
               </div>
               <label for="card-name">
                 Nombre del titular de la tarjeta
-                <input type="text" required id="card-name" />
+                <input type="text" required id="card-name" class="input" />
                 <span class="message--error" id="message-error"></span>
               </label>
+
+              <label for="identification">
+                Identificacion del tarjetahabiente
+                <div class="phone-numer__field phone-numer__field--big">
+                  <select name="identification" id="dial-code">
+                    <option value="CC - Cédula de Ciudadanía">
+                      CC - Cédula de Ciudadanía
+                    </option>
+                    <option value="NIT - Número de identificación tributaria">
+                      NIT - Número de identificación tributaria
+                    </option>
+                    <option value="PP - Pasaporte">PP - Pasaporte</option>
+                    <option value="TI - Tarjeta de identidad">
+                      TI - Tarjeta de identidad
+                    </option>
+                    <option value="DNI - Documento nacional de identificación">
+                      DNI - Documento nacional de identificación
+                    </option>
+                    <option value="Otro">Otro</option>
+                  </select>
+
+                  <input
+                    type="text"
+                    id="identification"
+                    class="phone__number input"
+                    name="identification"
+                    required
+                  />
+                </div>
+                <span class="message--error" id="message-error"></span>
+              </label>
+
               <label for="card-number">
                 Número de tarjeta de crédito/débito
                 <div class="card-number__container">
-                  <input type="text" required id="card-number" />
+                  <input
+                    type="text"
+                    required
+                    id="card-number"
+                    placeholder="1234 1234 1234 1234"
+                    class="input"
+                  />
                   <img src="images/allcards.png" alt="" id="card-img" />
                   <span class="message--error" id="message-error"></span>
                 </div>
@@ -211,23 +283,69 @@
                     required
                     placeholder="MM/YY"
                     id="card-expiration"
+                    class="input"
                   />
                   <span
                     class="message--error"
                     id="message-error"
                   ></span> </label
                 ><label for="card-code" class="card__code">
-                  Código CVC
+                  <div class="cvc">
+                    Código CVC
+                    <div class="button--svg">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        id="button-svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                        />
+                      </svg>
+                      <p id="tooltip" class="tooltip">
+                        Código de 3 a 4 dígitos ubicado en el reverso de tu
+                        tarjeta
+                      </p>
+                    </div>
+                  </div>
                   <input
                     type="text"
                     inputmode="numeric"
                     required
                     id="card-code"
+                    class="input"
                   /><span class="message--error" id="message-error"></span>
                 </label>
               </div>
+              <label for="form__terms" class="form__terms"
+                ><p>
+                  Acepto haber leído los términos y condiciones y la política de
+                  privacidad para hacer este pago
+                </p>
+                <input type="checkbox" name="" id="form__terms" required />
+              </label>
 
-              <button class="button button--primary margin-top-medium">
+              <button
+                class="button button--primary margin-top-medium button--secure"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                  />
+                </svg>
                 Comprar de manera segura
               </button>
               <button
@@ -236,6 +354,24 @@
               >
                 Regresar
               </button>
+              <div class="pago-seguro">
+                <p>
+                  <svg
+                    width="16"
+                    height="18"
+                    viewBox="0 0 16 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.0618 2.3963C15.0327 2.17545 14.8814 1.99415 14.6768 1.93446L8.12514 0.0199718C8.03138 -0.00763384 7.93336 -0.00763384 7.83961 0.0199718L1.28791 1.93446C1.08334 1.99415 0.932051 2.17545 0.902929 2.3963C0.865284 2.68354 -0.00197858 9.46484 2.22193 12.8387C4.44301 16.2081 7.71957 17.0721 7.85736 17.1071C7.93976 17.128 8.02499 17.128 8.10739 17.1071C8.24589 17.0721 11.5225 16.2088 13.7428 12.8387C15.966 9.46484 15.0995 2.68354 15.0618 2.3963ZM12.2072 6.35584L7.73804 11.0503C7.63433 11.1592 7.49796 11.2144 7.36158 11.2144C7.22521 11.2144 7.08883 11.16 6.98513 11.0503L4.22211 8.14797C4.01399 7.92937 4.01399 7.57571 4.22211 7.35711L4.77045 6.78037C4.97856 6.56177 5.31595 6.56177 5.52407 6.78037L7.36158 8.71053L10.9052 4.98824C11.1133 4.76964 11.45 4.76964 11.6581 4.98824L12.2065 5.56498C12.4146 5.78359 12.4146 6.13798 12.2065 6.35659L12.2072 6.35584Z"
+                      fill="#969696"
+                    />
+                  </svg>
+                  Pagos seguros por
+                </p>
+                <img src="images/wompi.png" alt="" />
+              </div>
             </fieldset>
           </form>
         </div>
