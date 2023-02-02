@@ -120,24 +120,26 @@
                 <input type="email" id="email" />
                 <span class="message--error" id="message-error"></span>
               </label>
+
               <label for="phone-number">
                 Teléfono
+                <div class="phone-numer__field">
+                  <select
+                    name="dial-code"
+                    id="dial-code"
+                    class="dial-code"
+                  ></select>
 
-                <select
-                  name="dial-code"
-                  id="dial-code"
-                  class="dial-code"
-                ></select>
-
-                <input
-                  type="tel"
-                  id="phone-number"
-                  class="phone__number"
-                  placeholder="xxx xxx xxx"
-                />
-
+                  <input
+                    type="tel"
+                    id="phone-number"
+                    class="phone__number"
+                    placeholder="xxx xxx xxx"
+                  />
+                </div>
                 <span class="message--error" id="message-error"></span>
               </label>
+
               <label for="direction">
                 Dirección
                 <input type="text" id="direction" />

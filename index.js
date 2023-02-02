@@ -3162,10 +3162,15 @@ const isCVVValid = (cvv) => {
 const setError = (element, message) => {
   errorsCounter++;
   const inputControl = element.parentElement;
-  const errorDisplay = inputControl.querySelector(".message--error");
-
-  errorDisplay.innerText = message;
-  console.log("cantidad de errores: ", errorsCounter);
+  if (element.id === "phone-number") {
+    const parent = inputControl.parentElement;
+    const errorDisplay = parent.querySelector(".message--error");
+    errorDisplay.innerText = message;
+    console.log("el padre es: ", parent);
+  } else {
+    const errorDisplay = inputControl.querySelector(".message--error");
+    errorDisplay.innerText = message;
+  }
 };
 
 const setSuccess = (element) => {
