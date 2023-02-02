@@ -400,6 +400,11 @@ select {
 */
 
 @media (max-width: 400px) {
+  select,
+  input,
+  label {
+    font-size: 0.85rem;
+  }
   .dial-code {
     min-width: 4rem;
   }
@@ -421,7 +426,8 @@ select {
 
 .phone-numer__field > select {
   flex: 1;
-  flex-basis: 4rem;
+  flex-basis: 3rem;
+  padding: 0.25rem;
 }
 .phone-numer__field > input {
   flex: 2;
