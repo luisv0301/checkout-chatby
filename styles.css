@@ -376,6 +376,7 @@ select {
 }
 .progress-bar__step {
   font-size: 0.87rem;
+  color: var(--primary-color);
 }
 .progress-bar__indicator-inner--full-width {
   width: 100%;
@@ -396,6 +397,7 @@ select {
   flex-direction: row-reverse;
   align-items: flex-start;
   gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .form__terms > input {
@@ -531,6 +533,10 @@ select {
   }
   .dial-code {
     min-width: 4rem;
+  }
+
+  .phone-numer__field--big {
+    grid-template-columns: 3.5rem 1fr;
   }
 }
 
