@@ -472,6 +472,11 @@ select {
 .visible {
   display: block;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 10000px white inset;
+}
+
 @media (max-width: 980px) {
   .product__container > h1 {
     justify-content: center;
