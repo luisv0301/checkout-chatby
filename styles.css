@@ -425,10 +425,15 @@ select {
 }
 
 .phone-numer__field > select {
-  flex: 1;
-  min-width: 3rem;
+  width: 5rem;
   padding: 0.25rem;
 }
 .phone-numer__field > input {
   flex: 2;
+}
+
+@media (max-width: 315px) {
+  .phone-numer__field > select {
+    flex: 1;
+  }
 }
