@@ -582,6 +582,11 @@ input:-webkit-autofill {
     padding: 0 0.2rem;
     font-size: 12px;
   }
+
+  .card-number__container > img {
+    height: 24px;
+    top: 8px;
+  }
 }
 
 @media (max-width: 340px) {
