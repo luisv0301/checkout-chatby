@@ -574,6 +574,14 @@ input:-webkit-autofill {
   .phone-numer__field--big {
     grid-template-columns: 3.5rem 1fr;
   }
+
+  .phone-numer__field {
+    grid-template-columns: 3.5rem 1fr;
+  }
+  .phone-number__code {
+    padding: 0 0.2rem;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 340px) {

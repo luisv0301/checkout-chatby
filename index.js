@@ -3100,11 +3100,13 @@ const setDialCodesOptions = () => {
 
     if (country.code === countryCode) {
       option.selected = true;
+      option.text = country.dial_code;
     }
   });
 };
 
 const dialCodeSelect = document.getElementById("dial-code");
+
 dialCodeSelect.addEventListener("change", (e) => {
   console.log(e.target.value);
   countryCodeForPhone = e.target.value;
