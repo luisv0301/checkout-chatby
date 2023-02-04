@@ -345,12 +345,17 @@ select {
   width: 100%;
 }
 
+/* AQUI modifique */
 .phone-numer__field {
   position: relative;
   width: 100%;
   display: grid;
   gap: 0.5rem;
-  grid-template-columns: 3.5rem 1fr;
+  grid-template-columns: 4rem 1fr;
+}
+
+.phone-number__code {
+  font-size: 13px;
 }
 
 .phone__img {
