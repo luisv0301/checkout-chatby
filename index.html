@@ -88,10 +88,14 @@
             <fieldset class="checkout__step-one" id="checkout__step-one">
               <legend>
                 <div class="progress-bar">
-                  <p class="progress-bar__step">Paso 1/2</p>
-                  <div class="progress-bar__indicator">
+                  <span class="progress-bar__step progress-bar__step--completed"
+                    >1</span
+                  >
+                  <div class="progress-bar__indicator-outer">
                     <div class="progress-bar__indicator-inner"></div>
                   </div>
+
+                  <span class="progress-bar__step">2</span>
                 </div>
                 <p>Datos de facturación</p>
               </legend>
@@ -195,12 +199,18 @@
             <fieldset class="checkout__step-two" id="checkout__step-two">
               <legend>
                 <div class="progress-bar">
-                  <p class="progress-bar__step">Paso 2/2</p>
-                  <div class="progress-bar__indicator">
+                  <span class="progress-bar__step progress-bar__step--completed"
+                    >1</span
+                  >
+                  <div class="progress-bar__indicator-outer">
                     <div
                       class="progress-bar__indicator-inner progress-bar__indicator-inner--full-width"
                     ></div>
                   </div>
+
+                  <span class="progress-bar__step progress-bar__step--completed"
+                    >2</span
+                  >
                 </div>
                 <p>Paga con tu tarjeta</p>
               </legend>

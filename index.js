@@ -3095,10 +3095,7 @@ const setDialCodesOptions = () => {
   getCountryFlag();
 
   countriesDialCodeAndFlags.map((country) => {
-    const option = new Option(
-      country.code + " " + "(" + country.dial_code + ")",
-      country.code
-    );
+    const option = new Option(country.dial_code, country.code);
     dialCodeSelect.appendChild(option);
 
     if (country.code === countryCode) {
@@ -3289,6 +3286,7 @@ const areThereErrors = () => {
   };
 
   */
+/* --------------------Tootip in CVC---------------------- */
 
 const btnsvg = document.getElementById("button-svg");
 const tooltip = document.getElementById("tooltip");
