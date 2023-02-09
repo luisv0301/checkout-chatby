@@ -3376,11 +3376,13 @@ formDataTest.addEventListener("submit", (e) => {
   const autofacturationAccepted =
     document.querySelector(".autofacturationjs").checked;
 
+  const{dial_code} = countriesDialCodeAndFlags.find(country => country.code === dialCode)
+
   const data = {
     billing: {
       "full_name": fullName,
       "email": email,
-      "code": dialCode,
+      "code": dial_code,
       "phone": phoneNumber,
       "address": direction,
       "state": state,
@@ -3397,6 +3399,7 @@ formDataTest.addEventListener("submit", (e) => {
       "terms_autopay": autofacturationAccepted,
     },
   };
+
 
   fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
     method: "POST",
