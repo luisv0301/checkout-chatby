@@ -3411,7 +3411,7 @@ formDataTest.addEventListener("submit", (e) => {
       return res;
     })
     .then((res) => {
-      window.location.replace(
+      window.location.assign(
         "https://gregarious-scone-4d8011.netlify.app/congratspage"
       );
     })
