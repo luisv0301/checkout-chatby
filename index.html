@@ -243,7 +243,12 @@
               </div>
               <label for="full-name">
                 Nombre completo*
-                <input type="text" id="full-name" class="input" />
+                <input
+                  type="text"
+                  id="full-name"
+                  class="input stepOneValidation"
+                  required
+                />
                 <span class="message--error" id="message-error"></span>
               </label>
               <label for="email">
@@ -264,7 +269,8 @@
                   <input
                     type="tel"
                     id="phone-number"
-                    class="phone__number input"
+                    class="phone__number input stepOneValidation"
+                    required
                   />
                   <img
                     src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/ve.svg"
@@ -278,7 +284,12 @@
 
               <label for="direction">
                 Dirección*
-                <input type="text" id="direction" class="input" />
+                <input
+                  type="text"
+                  id="direction"
+                  class="input stepOneValidation"
+                  required
+                />
 
                 <span class="message--error" id="message-error"></span>
               </label>
@@ -286,7 +297,12 @@
               <div class="form__group--revision">
                 <label for="state" class="label--special">
                   Estado/Provincia*
-                  <input type="text" id="state" class="input" />
+                  <input
+                    type="text"
+                    id="state"
+                    class="input stepOneValidation"
+                    required
+                  />
                   <span class="message--error" id="message-error"></span>
                 </label>
                 <label for="country" class="form__country label--special">

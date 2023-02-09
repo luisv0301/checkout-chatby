@@ -517,6 +517,7 @@ input:-webkit-autofill {
   background-color: var(--primary-color);
   flex-direction: column;
   color: white;
+  border-radius: 6px;
 }
 
 .product-inner {
@@ -563,6 +564,59 @@ input:-webkit-autofill {
 
 .product-features > li + li {
   margin-top: 0.5rem;
+}
+
+/* ----Congrats ------*/
+.congrats-container {
+  background: var(--primary-color);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.congrats-description {
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+  background: white;
+  gap: 2.5rem;
+  padding: 2rem;
+  border-radius: 6px;
+}
+
+.congrats-cta {
+  padding: 0.5rem;
+  background: var(--primary-color);
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+}
+.congrats-cta:hover {
+  background-color: var(--primary-color-hover);
+}
+.no-highlight {
+  color: #94a3b8;
+}
+
+.congrats-info {
+  display: flex;
+  gap: 2rem;
+
+  justify-content: space-between;
+}
+
+.logo {
+  color: white;
+  width: 100%;
+  font-weight: 600;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.congrats-content {
+  padding: 1rem;
 }
 
 @media (max-width: 980px) {
@@ -625,6 +679,9 @@ input:-webkit-autofill {
     max-width: 100%;
   }
 }
+
+
+congrats page
 */
 
 @media (max-width: 400px) {
@@ -652,6 +709,10 @@ input:-webkit-autofill {
   .card-number__container > img {
     height: 24px;
     top: 8px;
+  }
+
+  .congrats-info {
+    font-size: 0.85rem;
   }
 }
 

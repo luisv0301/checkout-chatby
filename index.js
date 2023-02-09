@@ -3136,6 +3136,28 @@ phoneField.addEventListener("keyup", (e) => {
 });
 
 continueBtn.addEventListener("click", (e) => {
+  /* First validation 
+  let validity = true;
+  e.preventDefault();
+
+  const stepOneArr = document.querySelectorAll(".stepOneValidation");
+
+  [...stepOneArr].forEach((el) => {
+    if (el.checkValidity() === false) {
+      // This is the magic function that displays the validation errors to the user
+      el.reportValidity();
+      validity = false;
+      return;
+    }
+  });
+
+  if (validity === true) {
+    stepOne.classList.add("hide");
+    stepTwo.classList.add("show");
+    formatCreditCardParameters();
+  }
+  */
+
   e.preventDefault();
   stepOne.classList.add("hide");
   stepTwo.classList.add("show");
