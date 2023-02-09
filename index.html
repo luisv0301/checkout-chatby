@@ -244,16 +244,22 @@
               <label for="full-name">
                 Nombre completo*
                 <input
+                  name="fullName"
                   type="text"
                   id="full-name"
-                  class="input stepOneValidation"
+                  class="input stepOneValidation fullName"
                   required
                 />
                 <span class="message--error" id="message-error"></span>
               </label>
               <label for="email">
                 Correo
-                <input type="email" id="email" class="input" />
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="stepOneValidation emailjs"
+                />
                 <span class="message--error" id="message-error"></span>
               </label>
 
@@ -261,15 +267,16 @@
                 Teléfono*
                 <div class="phone-numer__field">
                   <select
-                    name="dial-code"
+                    name="dialCode"
                     id="dial-code"
-                    class="phone-number__code"
+                    class="phone-number__code dialCodejs"
                   ></select>
 
                   <input
+                    name="phoneNumber"
                     type="tel"
                     id="phone-number"
-                    class="phone__number input stepOneValidation"
+                    class="phone__number input stepOneValidation phoneNumberjs"
                     required
                   />
                   <img
@@ -285,9 +292,10 @@
               <label for="direction">
                 Dirección*
                 <input
+                  name="direction"
                   type="text"
                   id="direction"
-                  class="input stepOneValidation"
+                  class="input stepOneValidation directionjs"
                   required
                 />
 
@@ -298,16 +306,21 @@
                 <label for="state" class="label--special">
                   Estado/Provincia*
                   <input
+                    name="state"
                     type="text"
                     id="state"
-                    class="input stepOneValidation"
+                    class="input stepOneValidation statejs"
                     required
                   />
                   <span class="message--error" id="message-error"></span>
                 </label>
                 <label for="country" class="form__country label--special">
                   País*
-                  <select name="country" id="country"></select>
+                  <select
+                    name="country"
+                    id="country"
+                    class="countryjs"
+                  ></select>
                 </label>
               </div>
 
@@ -378,14 +391,24 @@
               </div>
               <label for="card-name">
                 Nombre del titular de la tarjeta*
-                <input type="text" required id="card-name" class="input" />
+                <input
+                  name="CardOwner"
+                  type="text"
+                  required
+                  id="card-name"
+                  class="input cardOwnerjs"
+                />
                 <span class="message--error" id="message-error"></span>
               </label>
 
               <label for="identification">
                 Identificacion del tarjetahabiente*
                 <div class="phone-numer__field phone-numer__field--big">
-                  <select name="identification" id="dial-code">
+                  <select
+                    name="identificationType"
+                    id="dial-code"
+                    class="identificationTypejs"
+                  >
                     <option value="CC - Cédula de Ciudadanía">
                       CC - Cédula de Ciudadanía
                     </option>
@@ -405,7 +428,7 @@
                   <input
                     type="text"
                     id="identification"
-                    class="phone__number input"
+                    class="phone__number input identificationjs"
                     name="identification"
                     required
                   />
@@ -418,10 +441,11 @@
                 <div class="card-number__container">
                   <input
                     type="text"
+                    name="cardNumber"
                     required
                     id="card-number"
                     placeholder="1234 1234 1234 1234"
-                    class="input"
+                    class="input cardNumberjs"
                   />
                   <img src="images/cards-this.png" alt="" id="card-img" />
                   <img src="images/amex.png" alt="" id="card-img-change" />
@@ -436,7 +460,8 @@
                     required
                     placeholder="MM/YY"
                     id="card-expiration"
-                    class="input"
+                    class="input cardExpireDatejs"
+                    name="cardExpireDate"
                   />
                   <span
                     class="message--error"
@@ -471,7 +496,8 @@
                     inputmode="numeric"
                     required
                     id="card-code"
-                    class="input"
+                    class="input cardCVCjs"
+                    name="cardCVC"
                   /><span class="message--error" id="message-error"></span>
                 </label>
               </div>
@@ -480,14 +506,25 @@
                   Acepto haber leído los términos y condiciones y la política de
                   privacidad para hacer este pago*
                 </p>
-                <input type="checkbox" name="" id="form__terms" required />
+                <input
+                  type="checkbox"
+                  name="terms"
+                  id="form__terms"
+                  required
+                  class="termsjs"
+                />
               </label>
               <label for="form__capacity" class="form__terms"
                 ><p>
                   Autorizo la autofacturación para aumentar la capacidad de
                   contactos ilimitados
                 </p>
-                <input type="checkbox" name="" id="form__capacity" />
+                <input
+                  type="checkbox"
+                  name="capacity"
+                  id="form__capacity"
+                  class="autofacturationjs"
+                />
               </label>
 
               <button

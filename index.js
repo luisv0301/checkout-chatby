@@ -3136,7 +3136,6 @@ phoneField.addEventListener("keyup", (e) => {
 });
 
 continueBtn.addEventListener("click", (e) => {
-  /* First validation 
   let validity = true;
   e.preventDefault();
 
@@ -3156,12 +3155,6 @@ continueBtn.addEventListener("click", (e) => {
     stepTwo.classList.add("show");
     formatCreditCardParameters();
   }
-  */
-
-  e.preventDefault();
-  stepOne.classList.add("hide");
-  stepTwo.classList.add("show");
-  formatCreditCardParameters();
 });
 
 gobackBtn.addEventListener("click", (e) => {
@@ -3230,9 +3223,11 @@ const formFields = [
 ];
 
 const validateFields = (el) => {
+  /*
   if (el.id === "email" && !isEmailValid(el.value)) {
     return setError(el, "Ingrese un correo valido");
   }
+  */
 
   if (el.id === "phone-number" && !isPhoneValid(el.value)) {
     return setError(el, "Ingrese un teléfono valido");
@@ -3353,4 +3348,76 @@ const tooltip = document.getElementById("tooltip");
 
 btnsvg.addEventListener("click", () => {
   tooltip.classList.toggle("visible");
+});
+
+const formDataTest = document.getElementById("checkout__form");
+
+formDataTest.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  console.log("-----enviando form----");
+  const fullName = document.querySelector(".fullName").value;
+  const email = document.querySelector(".emailjs").value;
+  const dialCode = document.querySelector(".dialCodejs").value;
+  const phoneNumber = document.querySelector(".phoneNumberjs").value;
+  const direction = document.querySelector(".directionjs").value;
+  const state = document.querySelector(".statejs").value;
+  const country = document.querySelector(".countryjs").value;
+
+  const CardOwner = document.querySelector(".cardOwnerjs").value;
+  const identificationType = document.querySelector(
+    ".identificationTypejs"
+  ).value;
+  const identification = document.querySelector(".identificationjs").value;
+  const cardNumber = document.querySelector(".cardNumberjs").value;
+  const cardExpireDate = document.querySelector(".cardExpireDatejs").value;
+  const cardCVC = document.querySelector(".cardCVCjs").value;
+  const termsAceppted = document.querySelector(".termsjs").checked;
+  const autofacturationAccepted =
+    document.querySelector(".autofacturationjs").checked;
+
+  const data = {
+    billing: {
+      "full_name": fullName,
+      "email": email,
+      "code": dialCode,
+      "phone": phoneNumber,
+      "address": direction,
+      "state": state,
+      "country": country,
+    },
+    payment: {
+      "owner_name_c": CardOwner,
+      "id_type_c": identificationType,
+      "id_number_c": identification,
+      "number_c": cardNumber,
+      "expiry_c": cardExpireDate,
+      "cvc_c": cardCVC,
+      "terms_aceppted": termsAceppted,
+      "terms_autopay": autofacturationAccepted,
+    },
+  };
+
+  fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(response.status);
+      return res;
+    })
+    .then((res) => {
+      window.location.replace(
+        "https://gregarious-scone-4d8011.netlify.app/congratspage"
+      );
+    })
+    .catch((error) => console.log(error));
+
+
+  
+ 
 });
