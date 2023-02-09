@@ -3407,10 +3407,10 @@ formDataTest.addEventListener("submit", (e) => {
     body: JSON.stringify(data),
   })
     .then((res) => {
-      if (!res.ok) throw new Error(response.status);
-      return res;
-    })
-    .then((res) => {
+      if (!res.ok) {
+        throw new Error(response.status);
+        return;
+      }
       window.location.assign(
         "https://gregarious-scone-4d8011.netlify.app/congratspage"
       );
