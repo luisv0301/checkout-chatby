@@ -3073,6 +3073,7 @@ const formatPhone = (phone) => {
 
 const changeCardImg = (type) => {
   const image = document.getElementById("card-img");
+
   const imagesSet = {
     amex: "images/amex.png",
     dankort: "images/dankort.png",
@@ -3085,6 +3086,9 @@ const changeCardImg = (type) => {
   };
 
   if (type !== "unknown") {
+    const imageChange = document.getElementById("card-img-change");
+
+    imageChange.style.display = "none";
     return (image.src = imagesSet[type]);
   }
 };
@@ -3233,7 +3237,36 @@ formFields.forEach((el) => {
   });
 });
 
-/* --------------------Price---------------------- */
+/* Img change */
+
+const arrImg = [
+  "images/dankort.png",
+  "images/dinner.png",
+  "images/discover.png",
+  "images/unionpay.png",
+  "images/amex.png",
+];
+
+const imageChange = document.getElementById("card-img-change");
+let counter = 0;
+const limit = arrImg.length - 1;
+
+const intervalImg = setInterval(function () {
+  imageChange.src = arrImg[counter];
+  counter++;
+
+  if (counter > limit) {
+    counter = 0;
+  }
+}, 2000);
+
+const cardNumberField = document.getElementById("card-number");
+
+cardNumberField.addEventListener("keyup", () => {
+  clearInterval(intervalImg);
+});
+
+/* --------------------Price---------------------- 
 
 let formatCurrency = new Intl.NumberFormat(undefined, {
   style: "currency",
@@ -3264,6 +3297,9 @@ const updatePrice = () => {
 
 setPrice();
 updatePrice();
+
+*/
+
 /* probar mañana 
 
 const areThereErrors = () => {
