@@ -714,11 +714,19 @@ congrats page
   .congrats-info {
     font-size: 0.85rem;
   }
+
+  .congrats-description {
+    padding: 2rem 1rem;
+  }
 }
 
 @media (max-width: 340px) {
   .form__phone {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+  }
+
+  .congrats-info {
+    font-size: 0.8rem;
   }
 }
