@@ -3401,7 +3401,7 @@ formDataTest.addEventListener("submit", (e) => {
   };
 
 
-  fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
+  /* fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -3412,15 +3412,49 @@ formDataTest.addEventListener("submit", (e) => {
     .then((res) => {
       if (!res.ok) {
         throw new Error(response.status);
-        return;
+       
       }
-      window.location.assign(
+       window.location.assign(
         "https://gregarious-scone-4d8011.netlify.app/congratspage"
-      );
+      ); 
+      return res;
     })
+    .then((res) => console.log(res.json()))
     .catch((error) => console.log(error));
+*/
+
+
+
 
 
   
+    fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(response.status);
+          return;
+        }
+
+        return res.json();
+      })
+      .then(({ status, response }) => {
+        if (status === "success") {
+          console.log("fue exitosa");
+          window.localStorage.setItem("paymentInfo", JSON.stringify(response));
+          window.location.assign(
+            "https://gregarious-scone-4d8011.netlify.app/congratspage"
+          );
+        }
+      })
+      .catch((error) => console.log(error));    
  
 });
+
+
