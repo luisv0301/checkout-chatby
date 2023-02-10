@@ -3350,10 +3350,22 @@ btnsvg.addEventListener("click", () => {
   tooltip.classList.toggle("visible");
 });
 
+
+
+/* --------------------Submit form ---------------------- */
+
 const formDataTest = document.getElementById("checkout__form");
 
 formDataTest.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  
+  const btnIcon = document.getElementById("btn-icon");
+  const btnSubmit = document.getElementById("btn-submit")
+
+  btnIcon.style.display = "none";
+  btnSubmit.textContent = "Procesando su pago...";
+
 
   console.log("-----enviando form----");
   const fullName = document.querySelector(".fullName").value;
@@ -3438,23 +3450,29 @@ formDataTest.addEventListener("submit", (e) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error(response.status);
-          return;
+          window.location.assign(
+            "https://gregarious-scone-4d8011.netlify.app/errorpage"
+          );
         }
 
         return res.json();
       })
       .then(({ status, response }) => {
         if (status === "success") {
-          console.log("fue exitosa");
+          console.log("fue exitosa,", response);
           window.localStorage.setItem("paymentInfo", JSON.stringify(response));
           window.location.assign(
             "https://gregarious-scone-4d8011.netlify.app/congratspage"
+          );
+        } else {
+          window.location.assign(
+            "https://gregarious-scone-4d8011.netlify.app/errorpage"
           );
         }
       })
       .catch((error) => console.log(error));    
  
 });
+
 
 

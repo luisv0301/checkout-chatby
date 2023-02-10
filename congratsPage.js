@@ -6,9 +6,10 @@ const billDate = document.getElementById("bill-date")
 const billStatus = document.getElementById("bill-status")
 
 
-const {invoice_id, invoice_date, invoice_status}= JSON.parse(window.localStorage.getItem("paymentInfo"));
+const {invoice_id, invoice_date, invoice_status, invoice_total}= JSON.parse(window.localStorage.getItem("paymentInfo"));
 window.localStorage.removeItem("paymentInfo");
 
 billID.textContent = invoice_id;
 billDate.textContent = invoice_date;
 billStatus.textContent = invoice_status;
+billAmount.textContent = invoice_total;
