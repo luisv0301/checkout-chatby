@@ -2962,65 +2962,6 @@ const countriesDialCodeAndFlags = [
   { name: "Zimbabwe", flag: "🇿🇼", code: "ZW", dial_code: "+263" },
 ];
 
-/* Functions 
-
-const getCountryName = () => {
-  const countryTimezone = new Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const countryCode = timezones[countryTimezone].c[0];
-  const getCountryNames = new Intl.DisplayNames("es", { type: "region" });
-  return getCountryNames.of(countryCode);
-};
-
-
-const formatCreditCard = () => {
-  new Cleave("#card-number", {
-    creditCard: true,
-    onCreditCardTypeChanged: function (type) {
-      console.log("el tipo de tarjeta es", type);
-      changeCardImg(type);
-    },
-  });
-};
-
-
-const formatDate = () => {
-  new Cleave("#card-expiration", {
-    date: true,
-    datePattern: ["m", "y"],
-  });
-};
-
-const formatCVC = () => {
-  new Cleave("#card-code", {
-    blocks: [3],
-  });
-};
-
-const fillSelect = () => {
-  const dialCode = document.getElementById("dial-code");
-
-  
-  const countryCode = getCountryCode();
-
-  countriesDialCodeAndFlags.map((country) => {
-    const image = new Image();
-    image.src =
-      "https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/" +
-      countryCode.toLowerCase() +
-      ".svg";
-    const option = new Option(
-      country.code + " " + "(" + country.dial_code + ")",
-      country.dial_code
-    );
-    dialCode.appendChild(option);
-
-    if (country.code === countryCode) {
-      option.selected = true;
-    }
-  });
-};
-
-*/
 
 const continueBtn = document.getElementById("continue");
 const gobackBtn = document.getElementById("goback");
@@ -3044,11 +2985,13 @@ const getCountryFlag = () => {
     ".svg";
 };
 
+
+/* --------------------Fields formatting---------------------- */
+
 const formatCreditCardParameters = () => {
   new Cleave("#card-number", {
     creditCard: true,
     onCreditCardTypeChanged: function (type) {
-      console.log("tipo de tarjeta", type);
       changeCardImg(type);
     },
   });
@@ -3064,7 +3007,6 @@ const formatCreditCardParameters = () => {
 };
 
 const formatPhone = (phone) => {
-  console.log("valor entrendo a phone format:", countryCodeForPhone);
   const asYouType = new libphonenumber.AsYouType(countryCodeForPhone);
   const formattedPhone = asYouType.input(phone);
 
@@ -3093,6 +3035,9 @@ const changeCardImg = (type) => {
   }
 };
 
+
+/* --------------------Setting selects options dinamically---------------------- */
+
 const setDialCodesOptions = () => {
   const dialCodeSelect = document.getElementById("dial-code");
   const countryCode = getCountryCode();
@@ -3112,7 +3057,6 @@ const setDialCodesOptions = () => {
 const dialCodeSelect = document.getElementById("dial-code");
 
 dialCodeSelect.addEventListener("change", (e) => {
-  console.log(e.target.value);
   countryCodeForPhone = e.target.value;
   getCountryFlag();
 });
@@ -3143,7 +3087,6 @@ continueBtn.addEventListener("click", (e) => {
 
   [...stepOneArr].forEach((el) => {
     if (el.checkValidity() === false) {
-      // This is the magic function that displays the validation errors to the user
       el.reportValidity();
       validity = false;
       return;
@@ -3166,7 +3109,8 @@ gobackBtn.addEventListener("click", (e) => {
 setDialCodesOptions();
 setCountriesOptions();
 
-/* validation */
+
+/* ----------Fields validation-----------*/
 
 const isEmpty = (value) => (value === "" ? true : false);
 
@@ -3177,8 +3121,6 @@ const isEmailValid = (email) => {
 };
 
 const isPhoneValid = (phone) => {
-  console.log("telefono", phone);
-  console.log("telefono codigo", countryCodeForPhone);
   return libphonenumber
     .parsePhoneNumber(phone, countryCodeForPhone)
     .isPossible();
@@ -3198,7 +3140,6 @@ const setError = (element, message) => {
     const parent = inputControl.parentElement;
     const errorDisplay = parent.querySelector(".message--error");
     errorDisplay.innerText = message;
-    console.log("el padre es: ", parent);
   } else {
     const errorDisplay = inputControl.querySelector(".message--error");
     errorDisplay.innerText = message;
@@ -3223,12 +3164,6 @@ const formFields = [
 ];
 
 const validateFields = (el) => {
-  /*
-  if (el.id === "email" && !isEmailValid(el.value)) {
-    return setError(el, "Ingrese un correo valido");
-  }
-  */
-
   if (el.id === "phone-number" && !isPhoneValid(el.value)) {
     return setError(el, "Ingrese un teléfono valido");
   }
@@ -3254,7 +3189,8 @@ formFields.forEach((el) => {
   });
 });
 
-/* Img change */
+
+/* --------Animation for credit cards logo-------- */
 
 const arrImg = [
   "images/dankort.png",
@@ -3283,64 +3219,7 @@ cardNumberField.addEventListener("keyup", () => {
   clearInterval(intervalImg);
 });
 
-/* --------------------Price---------------------- 
 
-let formatCurrency = new Intl.NumberFormat(undefined, {
-  style: "currency",
-  currency: "USD",
-});
-const productQuantity = document.getElementById("product__quantity");
-const productPrice = document.getElementById("product__price");
-const price = Number(productPrice.textContent);
-
-const setPrice = () => {
-  productPrice.textContent = formatCurrency.format(price);
-};
-
-const updatePrice = () => {
-  productQuantity.addEventListener("change", (e) => {
-    const quantity = Number(e.target.value);
-
-    if (quantity === 1) {
-      return (productPrice.textContent = formatCurrency.format(price));
-    }
-
-    const newPrice = price * quantity;
-    productPrice.textContent = formatCurrency.format(newPrice);
-
-    console.log("el precio", formatCurrency.format(newPrice));
-  });
-};
-
-setPrice();
-updatePrice();
-
-*/
-
-/* probar mañana 
-
-const areThereErrors = () => {
-    const emptyFields = firstStepFields.filter((e) => isEmpty(e.value));
-  
-    if (emptyFields.length > 0) {
-      emptyFields[0].focus();
-      return true;
-    } else {
-      firstStepFields.forEach((el) => {
-        if (el.id === "email" && !isEmailValid(el.value)) {
-          el.focus();
-          return true;
-        }
-  
-        if (el.id === "phone-number" && !isPhoneValid(el.value)) {
-          el.focus();
-          return true;
-        }
-      });
-    }
-  };
-
-  */
 /* --------------------Tootip in CVC---------------------- */
 
 const btnsvg = document.getElementById("button-svg");
@@ -3358,8 +3237,6 @@ const formDataTest = document.getElementById("checkout__form");
 
 formDataTest.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  
   const btnIcon = document.getElementById("btn-icon");
   const btnSubmit = document.getElementById("btn-submit")
 
@@ -3367,7 +3244,6 @@ formDataTest.addEventListener("submit", (e) => {
   btnSubmit.textContent = "Procesando su pago...";
 
 
-  console.log("-----enviando form----");
   const fullName = document.querySelector(".fullName").value;
   const email = document.querySelector(".emailjs").value;
   const dialCode = document.querySelector(".dialCodejs").value;
@@ -3412,34 +3288,9 @@ formDataTest.addEventListener("submit", (e) => {
     },
   };
 
+  const urlOnSuccess = "https://gregarious-scone-4d8011.netlify.app/congratspage";
+  const urlOnError = "https://gregarious-scone-4d8011.netlify.app/errorpage";
 
-  /* fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(response.status);
-       
-      }
-       window.location.assign(
-        "https://gregarious-scone-4d8011.netlify.app/congratspage"
-      ); 
-      return res;
-    })
-    .then((res) => console.log(res.json()))
-    .catch((error) => console.log(error));
-*/
-
-
-
-
-
-  
     fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
       method: "POST",
       headers: {
@@ -3450,24 +3301,18 @@ formDataTest.addEventListener("submit", (e) => {
     })
       .then((res) => {
         if (!res.ok) {
-          window.location.assign(
-            "https://gregarious-scone-4d8011.netlify.app/errorpage"
-          );
+          window.location.assign(urlOnError);
         }
 
         return res.json();
       })
       .then(({ status, response }) => {
         if (status === "success") {
-          console.log("fue exitosa,", response);
+          console.log("response value: ", response)
           window.localStorage.setItem("paymentInfo", JSON.stringify(response));
-          window.location.assign(
-            "https://gregarious-scone-4d8011.netlify.app/congratspage"
-          );
+          
         } else {
-          window.location.assign(
-            "https://gregarious-scone-4d8011.netlify.app/errorpage"
-          );
+          window.location.assign(urlOnError);
         }
       })
       .catch((error) => console.log(error));    
