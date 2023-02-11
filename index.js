@@ -3308,9 +3308,8 @@ formDataTest.addEventListener("submit", (e) => {
       })
       .then(({ status, response }) => {
         if (status === "success") {
-          console.log("response value: ", response)
           window.localStorage.setItem("paymentInfo", JSON.stringify(response));
-          
+          window.location.assign(urlOnSuccess);
         } else {
           window.location.assign(urlOnError);
         }
