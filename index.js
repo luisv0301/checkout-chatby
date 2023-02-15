@@ -2962,12 +2962,28 @@ const countriesDialCodeAndFlags = [
   { name: "Zimbabwe", flag: "🇿🇼", code: "ZW", dial_code: "+263" },
 ];
 
+/* --------Get url params------- */
+
+const keyValues = window.location.search;
+const urlParams = new URLSearchParams(keyValues);
+
+const workspace_id = urlParams.get("workspace_id")
+const workspace_name = urlParams.get("workspace_name")
+const owner_name = urlParams.get("owner_name")
+const owner_email = urlParams.get("owner_email")
+
+
+
+/* --------Global variables------- */
+
 
 const continueBtn = document.getElementById("continue");
 const gobackBtn = document.getElementById("goback");
 const stepOne = document.getElementById("checkout__step-one");
 const stepTwo = document.getElementById("checkout__step-two");
 const phoneField = document.getElementById("phone-number");
+const emailToUpdate = document.getElementById("email");
+emailToUpdate.value = owner_email;
 let errorsCounter = 0;
 
 const getCountryCode = () => {
@@ -3002,7 +3018,7 @@ const formatCreditCardParameters = () => {
   });
 
   new Cleave("#card-code", {
-    blocks: [3],
+    blocks: [4],
   });
 };
 
@@ -3237,12 +3253,15 @@ const formDataTest = document.getElementById("checkout__form");
 
 formDataTest.addEventListener("submit", (e) => {
   e.preventDefault();
-  const btnIcon = document.getElementById("btn-icon");
   const btnSubmit = document.getElementById("btn-submit")
 
-  btnIcon.style.display = "none";
   btnSubmit.textContent = "Procesando su pago...";
 
+  const loader = document.createElement("span")
+  loader.classList.add("loader")
+
+  btnSubmit.insertBefore(loader, btnSubmit.firstChild)
+  btnSubmit.disabled = true;
 
   const fullName = document.querySelector(".fullName").value;
   const email = document.querySelector(".emailjs").value;
@@ -3266,41 +3285,192 @@ formDataTest.addEventListener("submit", (e) => {
 
   const{dial_code} = countriesDialCodeAndFlags.find(country => country.code === dialCode)
 
-  const data = {
-    billing: {
-      "full_name": fullName,
-      "email": email,
-      "code": dial_code,
-      "phone": phoneNumber,
-      "address": direction,
-      "state": state,
-      "country": country,
-    },
-    payment: {
-      "owner_name_c": CardOwner,
-      "id_type_c": identificationType,
-      "id_number_c": identification,
-      "number_c": cardNumber,
-      "expiry_c": cardExpireDate,
-      "cvc_c": cardCVC,
-      "terms_aceppted": termsAceppted,
-      "terms_autopay": autofacturationAccepted,
-    },
+
+  //Open pay config
+  const planID = "ploerzq2koth8j9sat3m";
+  const comerceID = "mzsa94quy70gi4fqayol";
+  const baseURL = "https://sandbox-api.openpay.pe";
+  const privateKey = "sk_b8ead8f625eb454cb0392cc7bcd1d255";
+  const publicKey = "pk_e79b6b337f5141e59c3af04f19385218";
+
+  OpenPay.setId(comerceID);
+  OpenPay.setApiKey(publicKey);
+  OpenPay.setSandboxMode(true);
+
+
+  let clientID = "";
+  let cardID = "";
+  let card = {};
+  let subscriptionCollection = {};
+
+ 
+
+
+// Create client
+const createClient = () => {
+  const createClienteURL = `${baseURL}/v1/${comerceID}/customers`
+
+  const parseDialCode = dial_code.slice(1)
+  const parsePhone = phoneNumber.replace("-", "")
+
+  const client = {
+    name: fullName,
+    email: email,
+    phone_number: parseDialCode + parsePhone,
   };
 
-  const urlOnSuccess = "https://gregarious-scone-4d8011.netlify.app/congratspage";
-  const urlOnError = "https://gregarious-scone-4d8011.netlify.app/errorpage";
+  fetch(createClienteURL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa(privateKey + ":" + ""),
+    },
+    body: JSON.stringify(client),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      if (data?.error_code) {
+        handleTransactionError(data.error_code);
+      } else {
+        clientID = data.id;
+        clientID && createCard();
+      }
+    })
+    .catch((error) => console.log("ocurrion un error al crear cliente:", error));
+};
 
-    fetch("https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik", {
+//Tokenization
+const createCard = () => {
+  
+  console.log("si hay client id", clientID)
+
+  const cardURL = `${baseURL}/v1/${comerceID}/customers/${clientID}/cards`;
+
+  const deviceDataId = OpenPay.deviceData.setup();
+  const parsedCardNumber = cardNumber.replaceAll(" ", "");
+  const expiration_month = cardExpireDate.slice(0, 2);
+  const expiration_year = cardExpireDate.slice(3);
+
+  const cardData = {
+    holder_name: CardOwner,
+    card_number: parsedCardNumber,
+    cvv2: cardCVC,
+    expiration_month,
+    expiration_year,
+    device_session_id: deviceDataId,
+  };
+
+
+    fetch(cardURL, {
       method: "POST",
       headers: {
         "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": 'Basic ' + btoa(privateKey + ":" + ""),
+      },
+      body: JSON.stringify(cardData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+      
+        if (data?.error_code) {
+          handleTransactionError(data.error_code);
+        } else {
+          cardID = data.id;
+          const { brand, bank_name, type } = data;
+          card = { brand, bank_name, type };
+          cardID && createSubscription();
+        } 
+      })
+      .catch((error) => console.log("ha ocurrido un error con la tarjeta", error));
+};
+
+
+
+//Create supcription
+const createSubscription = () => {
+  const subscriptionURL = `${baseURL}/v1/${comerceID}/customers/${clientID}/subscriptions`;
+
+  const supscriptionData = {
+    source_id: cardID,
+    plan_id: planID,
+  };
+
+  fetch(subscriptionURL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Basic " + btoa(privateKey + ":" + ""),
+    },
+    body: JSON.stringify(supscriptionData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data?.error_code) {
+        handleTransactionError(data.error_code);
+      } else {
+        subscriptionCollection = data;
+        data.transaction.status === "completed" && comunicateWithWebhook()
+      }
+    })
+    .catch((error) => console.log(error));
+};
+
+
+  const comunicateWithWebhook = () => {
+
+    const data = {
+      workspace: {
+        workspace_id,
+        workspace_name,
+        owner_name,
+        owner_email,
+      },
+      plan: {
+        plan_name: "Business Plan",
+        pla_price: 25,
+      },
+      billing: {
+        full_name: fullName,
+        email: email,
+        code: dial_code,
+        phone: phoneNumber,
+        address: direction,
+        state: state,
+        country: country,
+        id_type_c: identificationType,
+        id_number_c: identification,
+        terms_aceppted: termsAceppted,
+        terms_autopay: autofacturationAccepted,
+      },
+      openpay: {
+        customer_id: clientID,
+        plan_id: planID,
+        card_id: cardID,
+      },
+      subscription: subscriptionCollection,
+    };
+
+    const webHookUrl =
+      "https://hook.us1.make.com/2dqtrk19wkxvo8qr9it533f6qcopcbik";
+    const urlOnSuccess = "https://chatby.io/checkout/paid";
+    const urlOnError = "https://chatby.io/checkout/error";
+
+    fetch(webHookUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
       .then((res) => {
         if (!res.ok) {
+          window.localStorage.setItem("workspaceId", workspace_id);
           window.location.assign(urlOnError);
         }
 
@@ -3308,15 +3478,60 @@ formDataTest.addEventListener("submit", (e) => {
       })
       .then(({ status, response }) => {
         if (status === "success") {
+          window.localStorage.setItem("workspaceId", workspace_id);
           window.localStorage.setItem("paymentInfo", JSON.stringify(response));
           window.location.assign(urlOnSuccess);
         } else {
+          window.localStorage.setItem("workspaceId", workspace_id);
           window.location.assign(urlOnError);
         }
       })
-      .catch((error) => console.log(error));    
- 
+      .catch((error) => console.log(error));
+  };
+    
+  createClient()
 });
 
 
+const handleTransactionError = (errorCode) => {
 
+const errMessages = {
+  "1000": "Ocurrió un error interno en el servidor",
+  "1001": "Alguno de los campos es incorrecto, compruebe que ha llenado todos los campos y sus datos sean correctos",
+  "1003": "La operación no se pudo completar por que el valor de uno o más de los parametros no es correcto.",
+  "1007": "La transferencia de fondos entre una cuenta de banco o tarjeta y la cuenta de Openpay no fue aceptada.",
+  "2002": "La tarjeta con este número ya se encuentra registrada en el cliente.",
+  "2004": "El número de la tarjeta no es válido.",
+  "2005": "La fecha de expiración de la tarjeta es anterior a la fecha actual.",
+  "2009": "El código de seguridad de la tarjeta (CVV2) no es valido.",
+  "3001": "La tarjeta fue declinada.",
+  "3002": "La tarjeta ha expirado.",
+  "3003": "La tarjeta no tiene fondos suficientes.",
+  "3004": "La tarjeta ha sido identificada como una tarjeta robada.",
+  "3005": "La tarjeta ha sido identificada como una tarjeta fraudulenta.",
+  "3008": "La tarjeta no es soportada en transacciones en linea.",
+  "3009": "La tarjeta fue reportada como perdida.",
+  "3010": "El banco ha restringido la tarjeta.",
+  "3011": "El banco ha solicitado que la tarjeta sea retenida. Contacte al banco.",
+  "3012": "Se requiere solicitar al banco autorización para realizar este pago.",
+};
+  
+const modalOverlay = document.querySelector(".modal-overlay")
+const modalBtn = document.querySelector(".modal-btn")
+const modalDescription = document.querySelector(".modal-description")
+
+modalOverlay.classList.add("display-grid")
+modalDescription.textContent = errMessages[errorCode] || "Ha ocurrido un error" ;
+
+modalBtn.addEventListener("click", () => {
+  modalOverlay.classList.remove("display-grid");
+
+  const btnSubmit = document.getElementById("btn-submit");
+  const loader = document.querySelector(".loader");
+  loader.remove();
+
+  btnSubmit.innerHTML = "Comprar de manera segura";
+  btnSubmit.disabled = false;
+});
+
+};
